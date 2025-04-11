@@ -1,0 +1,640 @@
+/* Base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f7f7f7;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  position: relative;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #fff;
+  border-right: 1px solid #e0e0e0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  background-color: #1a237e;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.logo-text {
+  margin-left: 10px;
+  font-weight: bold;
+  color: #1a237e;
+  font-size: 18px;
+}
+
+.sidebar-nav {
+  margin-top: 20px;
+}
+
+.nav-item {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  color: #757575;
+  position: relative;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  background-color: #f5f5f5;
+}
+
+.nav-item.active {
+  background-color: #e0e0e0;
+  color: #1a237e;
+  font-weight: 600;
+}
+
+.nav-item .icon {
+  margin-right: 12px;
+  font-size: 18px;
+}
+
+.nav-item.logout {
+  color: #e53935;
+}
+
+.notification-badge {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #e53935;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.account-section {
+  margin-top: 50px;
+}
+
+.section-title {
+  padding: 0 16px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #757575;
+}
+
+.emergency-hotline {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  background-color: #1a237e;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.hotline-title {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.hotline-number {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.hotline-number .icon {
+  margin-right: 5px;
+  font-size: 10px;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.main-header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.back-button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  padding: 8px 8px 8px 36px;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  width: 360px;
+  font-size: 14px;
+}
+
+.search-container .icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #757575;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.menu-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  margin-right: 8px;
+}
+
+.user-name {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.user-role {
+  font-size: 12px;
+  color: #757575;
+}
+
+/* Appointments Section */
+.appointments-header {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.appointments-header h2 {
+  color: #e53935;
+  font-size: 24px;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.theme-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: none;
+  cursor: pointer;
+}
+
+.theme-btn.active {
+  background-color: #1a237e;
+  color: white;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: #e0e0e0;
+  margin: 0 4px;
+}
+
+/* Calendar Controls */
+.calendar-controls {
+  padding: 8px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date-selector {
+  position: relative;
+}
+
+.date-range-select {
+  padding: 8px 30px 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  appearance: none;
+  background-color: white;
+  font-size: 14px;
+}
+
+.date-selector .icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.month-navigation {
+  display: flex;
+  align-items: center;
+}
+
+.month-display {
+  font-weight: bold;
+  margin-right: 16px;
+  font-size: 14px;
+}
+
+.nav-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.add-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+/* View Selector */
+.view-selector {
+  padding: 8px 24px;
+  display: flex;
+  gap: 8px;
+}
+
+.view-btn {
+  padding: 4px 16px;
+  border-radius: 8px;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.view-btn.active {
+  background-color: #e53935;
+  color: white;
+}
+
+/* Calendar Grid - UPDATED */
+.calendar-grid-container {
+  flex: 1;
+  padding: 16px;
+  overflow: auto;
+  position: relative;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  height: 800px; /* Fixed height for consistent time slots */
+  border: 1px solid #e0e0e0;
+  background-color: white;
+}
+
+.day-column {
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+}
+
+.day-column:last-child {
+  border-right: none;
+}
+
+.day-header {
+  padding: 8px 4px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.day-content {
+  position: relative;
+  flex: 1;
+  min-height: 770px; /* Allow space for all time slots */
+}
+
+/* Time slots - Visual guides */
+.day-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+  background-size: 100% 30px; /* 30px height for each 30-minute slot */
+  background-position: 0 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Time markers */
+.time-markers {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 60px;
+  z-index: 5;
+}
+
+.time-marker {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: #757575;
+  padding-left: 8px;
+}
+
+/* Improved appointment positioning */
+.appointment-card {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  border-radius: 8px;
+  padding: 4px 8px;
+  z-index: 3;
+  height: 30px; /* Fixed height for 30-min appointments */
+  overflow: hidden;
+}
+
+/* Double-height appointments */
+.appointment-card.hour-long {
+  height: 60px;
+}
+
+.appointment-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.appointment-title {
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
+}
+
+.appointment-time {
+  font-size: 11px;
+}
+
+/* Appointment colors */
+.appointment-emergency {
+  background-color: #1a237e;
+  color: white;
+}
+
+.appointment-examination {
+  background-color: #ffd54f;
+  color: black;
+}
+
+.appointment-consultation {
+  background-color: #7e57c2;
+  color: white;
+}
+
+.appointment-routine {
+  background-color: #e53935;
+  color: white;
+}
+
+.appointment-prescription {
+  background-color: #7e57c2;
+  color: white;
+}
+
+.appointment-default {
+  background-color: #e0e0e0;
+  color: black;
+}
+
+/* Time grid lines */
+.hour-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #e0e0e0;
+  z-index: 2;
+}
+
+/* Legend */
+.appointment-legend {
+  padding: 16px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  background-color: white;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+}
+
+.legend-color {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.legend-color.emergency {
+  background-color: #1a237e;
+}
+
+.legend-color.examination {
+  background-color: #ffd54f;
+}
+
+.legend-color.consultation {
+  background-color: #7e57c2;
+}
+
+.legend-color.routine {
+  background-color: #e53935;
+}
+
+.legend-color.sick-visit {
+  background-color: #7e57c2;
+}
+
+.legend-item span {
+  font-size: 12px;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  width: 400px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.modal-header h3 {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.form-select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  appearance: none;
+}
