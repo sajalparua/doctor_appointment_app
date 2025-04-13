@@ -1,0 +1,24 @@
+Doctor Appointment Booking System
+
+This project is a Doctor Appointment Booking System developed using React. It allows patients to book, edit, and delete appointments through an interactive calendar interface. The project currently supports patient functionality. Doctor-specific features will be added in the future.
+
+Key Features
+
+1. Appointment Booking
+- Book an Appointment: Select a date and time from the calendar.
+- Popup for Booking: Click on a calendar cell to open a popup to book an appointment.
+- Edit and Delete: You can edit or delete existing appointments.
+
+2. Calendar View
+- Monthly View: The main page shows a calendar with scheduled appointments.
+- Appointment Details: Appointments show details like category, time, and doctor.
+
+Project Status
+- Patient Functionality: Available and working.
+- Doctor Functionality: Planned for future development.
+
+Tech Stack
+- Frontend: React
+- Styling: CSS, Bootstrap
+- Icons: React Icons
+- Alerts: SweetAlert2
