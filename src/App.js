@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './App.css';
 import BookingModel from './component/BookingModel';
 import Slider from './component/Slider';
@@ -7,44 +7,52 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaUserDoctor } from "react-icons/fa6";
 import { CiUser } from "react-icons/ci";
 import ToggleSwitch from './component/ToggleSwitch';
+import { AppContext } from './context/AppContext';
 
-
-
-// For a production app, you'd want to use a proper icon library
-// This is a simplified version for demo purposes
-
+// Icon components for various UI elements
 const IconSearch = () => <span className="icon icon-search">🔍</span>;
 const IconSun = () => <span className="icon">☀️</span>;
 const IconMoon = () => <span className="icon">🌙</span>;
 const IconChevronLeft = () => <span className="icon icon-chevron-left">◀</span>;
 
-
-export default function AppointmentScheduler() {
+export default function App() {
+  // State to manage the selected date in the calendar
   const [selectedDate, setSelectedDate] = useState(null);
-  const [appointmentName, setAppointmentName] = useState('');
-  const [dateRange, setDateRange] = useState('This week: October 10 - October 16');
-  const [viewMode, setViewMode] = useState('week');
-  const [isDoctor, SetIsDoctor] = useState(false);
 
+  // State to manage the theme mode (light or dark)
+  const [viewMode, setViewMode] = useState('light');
 
+  // State to manage the calendar view (day, week, or month)
+  const [calanderView, setCalanderView] = useState('month');
 
- 
+  // Context to determine if the user is a doctor or a patient
+  const { isDoctor, SetIsDoctor } = useContext(AppContext);
 
-;
+  // Effect to toggle the dark mode class on the body element based on viewMode
+  useEffect(() => {
+    if (viewMode === 'dark') {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [viewMode]);
 
   return (
-    <div className="app-container ">
-      {/* Sidebar */}
-     <Slider/>
-      
+    <div className="app-container">
+      {/* Sidebar component */}
+      <Slider />
+
       {/* Main Content */}
       <div className="main-content">
-        {/* Header */}
+        {/* Header Section */}
         <header className="main-header">
           <div className="header-left">
+            {/* Back button */}
             <button className="back-button">
               <IconChevronLeft />
             </button>
+
+            {/* Search bar */}
             <div className="search-container">
               <IconSearch />
               <input
@@ -54,81 +62,89 @@ export default function AppointmentScheduler() {
               />
             </div>
           </div>
-          
+
           <div className="header-right">
-                  <ToggleSwitch isDoctor={isDoctor} SetIsDoctor={SetIsDoctor}/>
+            {/* Toggle switch to switch between doctor and patient */}
+            <ToggleSwitch isDoctor={isDoctor} SetIsDoctor={SetIsDoctor} />
+
+            {/* User profile section */}
             <div className="user-profile ms-3">
               <div className="avatar"></div>
               <div className="user-info">
-                <div className="user-name">{isDoctor?"Ola Boluwatife":"carry combod"}</div>
-                <div className="user-role">{isDoctor?"DOCTOR":"PATIENT"}</div>
+                <div className="user-name">{isDoctor ? "Ola Boluwatife" : "carry combod"}</div>
+                <div className="user-role">{isDoctor ? "DOCTOR" : "PATIENT"}</div>
               </div>
             </div>
           </div>
         </header>
-        
+
         {/* Appointments Header */}
         <div className="appointments-header">
           <h2>Appointments</h2>
+
+          {/* Theme toggle buttons */}
           <div className="theme-toggle">
-            <button className={`theme-btn ${viewMode === 'dark' ? 'active' : ''}`}>
+            <button
+              onClick={() => setViewMode("dark")}
+              className={`theme-btn ${viewMode === 'dark' ? 'active' : ''}`}
+            >
               <IconMoon />
             </button>
             <div className="divider"></div>
-            <button className={`theme-btn ${viewMode === 'light' ? 'active' : ''}`}>
+            <button
+              onClick={() => setViewMode("light")}
+              className={`theme-btn ${viewMode === 'light' ? 'active' : ''}`}
+            >
               <IconSun />
             </button>
           </div>
         </div>
-        
-   
-        
-        {/* View Selector */}
-        <div className="d-flex align-items-center justify-content-between px-3">
+
+        {/* Calendar View Selector */}
+        <div className="d-flex align-items-center justify-content-between px-3 calander-header">
           <div className="view-selector">
-          <button 
-            className={`view-btn ${viewMode === 'day' ? 'active' : ''}`}
-            onClick={() => setViewMode('day')}
-          >
-            DAY
-          </button>
-          <button 
-            className={`view-btn ${viewMode === 'week' ? 'active' : ''}`}
-            onClick={() => setViewMode('week')}
-          >
-            WEEK
-          </button>
-          <button 
-            className={`view-btn ${viewMode === 'month' ? 'active' : ''}`}
-            onClick={() => setViewMode('month')}
-          >
-            MONTH
-          </button>
+            {/* Buttons to switch between day, week, and month views */}
+            <button
+              className={`view-btn ${calanderView === 'day' ? 'active' : ''}`}
+              onClick={() => setCalanderView('day')}
+            >
+              DAY
+            </button>
+            <button
+              className={`view-btn ${calanderView === 'week' ? 'active' : ''}`}
+              onClick={() => setCalanderView('week')}
+            >
+              WEEK
+            </button>
+            <button
+              className={`view-btn ${calanderView === 'month' ? 'active' : ''}`}
+              onClick={() => setCalanderView('month')}
+            >
+              MONTH
+            </button>
           </div>
-         
+
+          {/* Display selected date information */}
           <div className="selected-date-info">
-          {selectedDate && (
-       
-          <p>
-            Selected: <span className="selected-date-text">{selectedDate.toLocaleDateString('en-US', {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}</span>
-          </p>
-        
-      )}
-      </div>
+            {selectedDate && (
+              <p>
+                Selected: <span className="selected-date-text">{selectedDate.toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}</span>
+              </p>
+            )}
+          </div>
         </div>
-        
-        
+
         {/* Calendar Grid */}
-        <CalanderGride setSelectedDate={setSelectedDate}/>
-        
-        
-        {/* Legend */}
+        <CalanderGride selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+
+        {/* Appointment Legend */}
         <div className="appointment-legend">
+          {/* Legend items for different appointment types */}
           <div className="legend-item">
             <div className="legend-color emergency"></div>
             <span>EMERGENCY</span>
@@ -151,13 +167,11 @@ export default function AppointmentScheduler() {
           </div>
         </div>
       </div>
-      
-      {/* New Appointment Modal */}
+
+      {/* Booking Modal for new appointments */}
       {selectedDate && (
-        <BookingModel selectedDate={selectedDate} setSelectedDate={setSelectedDate}  setAppointmentName={setAppointmentName} appointmentName={appointmentName}/>
+        <BookingModel selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
       )}
-      
-     
     </div>
   );
 }

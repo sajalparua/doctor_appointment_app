@@ -1,28 +1,38 @@
 
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../context/AppContext';
 import Swal from 'sweetalert2'
 const IconClose = () => <span className="icon icon-close">✖</span>;
-const IconChevronDown = () => <span className="icon icon-chevron-down">▼</span>;
-const IconClock = () => <span className="icon icon-clock">🕒</span>;
 
 const doctors = [ "Dr. Smith", "Dr. Johnson", "Dr. Lee", "Dr. Brown", "Dr. Garcia" ];
 
-const BookingModel = ({selectedDate,setSelectedDate }) => {
+const BookingModel = ({selectedDate,setSelectedDate ,setIsEdite , isEdite }) => {
   const [appointmentDetails, setappointmentDetails] = useState({name: '',
     date: selectedDate,
      category: '', doctor: '', startTime: '', endTime: '' , id:Math.random()*100*100});
-  const {setBookingAppointment} = useContext(AppContext); 
+  const {setShowMorePopup  ,setBookingAppointment} = useContext(AppContext); 
      
 
+  useEffect(() => {
+if(isEdite) {
+setappointmentDetails(isEdite)
+}
+  },[isEdite])
 
 
      const handelChange = (key,value) => {
-      setappointmentDetails((prevDetails) => ({
+      if(value === "Select category" || value === "Select doctor") {
+        setappointmentDetails((prevDetails) => ({
+          ...prevDetails,
+          [key]: "",
+        }));
+      }
+      else{
+        setappointmentDetails((prevDetails) => ({
         ...prevDetails,
         [key]: value,
       }));
-     }
+     }}
 
     
 
@@ -53,27 +63,53 @@ const BookingModel = ({selectedDate,setSelectedDate }) => {
         }); 
       }
       else {
-        setBookingAppointment(prev => [...prev, appointmentDetails]);
-        console.log(appointmentDetails);
+        if(isEdite) {
+          setBookingAppointment(prev => {
+            const updatedAppointments = prev.map((item) => {
+              if(item.id === appointmentDetails.id) {
+                return appointmentDetails;
+              }
+              return item;
+            });
+            return updatedAppointments;
+          })
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "Appointment update successfully",
+            
+          });
+          setSelectedDate(null);
+          setIsEdite(false);
+          setShowMorePopup(false)
+         }
+          else{
+            setBookingAppointment(prev => [...prev, appointmentDetails]);
         
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Appointment booked successfully",
-          
-        });
-        setSelectedDate(null);
+            Swal.fire({
+              icon: "success",
+              title: "Success",
+              text: "Appointment booked successfully",
+              
+            });
+            setSelectedDate(null);
+          }
+        
       }
      }
-     console.log(appointmentDetails);
-     
+
+    
 
   return (
     <div className="modal-overlay">
     <div className="modals ">
       <div className="modal-header">
-        <h3>MAKE NEW APPOINTMENT</h3>
-        <button className="close-btn" onClick={() => setSelectedDate(null)}>
+        {isEdite ? <h3>EDIT APPOINTMENT</h3> :<h3>MAKE NEW APPOINTMENT</h3>
+        }
+        <button className="close-btn" onClick={() =>{
+          setSelectedDate(null);
+          setIsEdite &&  setIsEdite(false);} 
+        }>
           <IconClose />
         </button>
       </div>
@@ -81,6 +117,7 @@ const BookingModel = ({selectedDate,setSelectedDate }) => {
       <div className="form-group">
         <label>NAME</label>
         <input
+          value={appointmentDetails.name}
           type="text"
           className="form-input"
           onChange={(e) => handelChange("name" ,e.target.value)}
@@ -90,13 +127,13 @@ const BookingModel = ({selectedDate,setSelectedDate }) => {
       <div className="form-group">
         <label>CATEGORIES</label>
         <div className="select-wrapper">
-          <select className="form-select" onChange={(e) => handelChange("category" ,e.target.value)}>
-            <option>Select category</option>
-            <option>Emergency</option>
-            <option>Examination</option>
-            <option>Consultation</option>
-            <option>Routine_Checkup</option>
-            <option>Sick_Visit</option>
+          <select value={appointmentDetails.category} className="form-select" onChange={(e) => handelChange("category" ,e.target.value)}>
+            <option value={""}>Select category</option>
+            <option value={"Emergency"}>Emergency</option>
+            <option value={"Examination"}>Examination</option>
+            <option value={"Consultation"}>Consultation</option>
+            <option value={"Routine_Checkup"}>Routine_Checkup</option>
+            <option value={"Sick_Visit"}>Sick_Visit</option>
           </select>
         </div>
       </div>
@@ -104,7 +141,7 @@ const BookingModel = ({selectedDate,setSelectedDate }) => {
       <div className="form-group">
         <label>DOCTORS</label>
         <div className="select-wrapper">
-          <select className="form-select" onChange={(e) => handelChange("doctor" ,e.target.value)}>
+          <select value={appointmentDetails.doctor} className="form-select" onChange={(e) => handelChange("doctor" ,e.target.value)}>
             <option>Select doctor</option>
             {doctors.map((doctor, index) => (
               <option key={index} value={doctor}>
@@ -118,23 +155,30 @@ const BookingModel = ({selectedDate,setSelectedDate }) => {
       <div className="time-inputs d-flex justify-content-around align-items-center">
         <div className="form-group half">
           <label>START TIME</label>
-         <input type="time"  onChange={(e) => handelChange("startTime" ,e.target.value)}/>
+         <input defaultValue={appointmentDetails.startTime} type="time"  onChange={(e) => handelChange("startTime" ,e.target.value)}/>
 
         </div>
         
         <div className="form-group half">
           <label>END TIME</label>
-          <input type="time"  onChange={(e) => handelChange("endTime" ,e.target.value)} />
+          <input defaultValue={appointmentDetails.endTime} type="time"  onChange={(e) => handelChange("endTime" ,e.target.value)} />
 
         </div>
       </div>
       
-      <div className='d-flex'> <button 
+      <div className='d-flex'>
+        {isEdite ? <button 
+        className="submit-btn border-0 mx-auto p-2 bg-info text-white rounded-3 shadow"
+        onClick={() => handelSubmit()}
+      >
+        UPDATE APPOINTMENT
+      </button> :
+        <button 
         className="submit-btn border-0 mx-auto p-2 bg-info text-white rounded-3 shadow"
         onClick={() => handelSubmit()}
       >
         MAKE NEW APPOINTMENT
-      </button></div>
+      </button>} </div>
      
     </div>
   </div>

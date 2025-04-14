@@ -6,7 +6,7 @@ const IconClose = () => <span className="icon icon-close">✖</span>;
 
 
 
-const MoreModel = ({moreData,setShowMorePopup}) => {
+const MoreModel = ({ setIsEdite ,moreData,setShowMorePopup}) => {
   return (
     <div className="modal-overlay">
     <div className="modals ">
@@ -19,7 +19,7 @@ const MoreModel = ({moreData,setShowMorePopup}) => {
       <div>
 {moreData.map((item,index)=>{
   
-   return(index !== 0 &&<BookingStrip item={item} index={index}/> )
+   return(index !== 0 &&<BookingStrip setIsEdite={setIsEdite} item={item} index={index}/> )
 
 })
   }

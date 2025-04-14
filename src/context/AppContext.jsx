@@ -9,6 +9,8 @@ const  AppContextProvider = ({ children }) => {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [bookingAppointment, setBookingAppointment] = useState([]);
      const [showMorePopUp, setShowMorePopup] = useState(false); 
+     const [isDoctor, SetIsDoctor] = useState(false);
+
     
 
     const handelDelete = (id) => {
@@ -17,7 +19,7 @@ const  AppContextProvider = ({ children }) => {
     }
 
     return (
-        <AppContext.Provider value={{isDarkMode , showMorePopUp , setShowMorePopup ,setIsDarkMode ,handelDelete, bookingAppointment , setBookingAppointment}}>
+        <AppContext.Provider value={{isDoctor,SetIsDoctor,isDarkMode , showMorePopUp , setShowMorePopup ,setIsDarkMode ,handelDelete, bookingAppointment , setBookingAppointment}}>
             {children}
         </AppContext.Provider>
     )
