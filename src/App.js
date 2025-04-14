@@ -102,8 +102,7 @@ export default function App() {
 
         {/* Calendar View Selector */}
         <div className="d-flex align-items-center justify-content-between px-3 calander-header">
-          <div className="view-selector">
-            {/* Buttons to switch between day, week, and month views */}
+          {/* <div className="view-selector">
             <button
               className={`view-btn ${calanderView === 'day' ? 'active' : ''}`}
               onClick={() => setCalanderView('day')}
@@ -122,7 +121,7 @@ export default function App() {
             >
               MONTH
             </button>
-          </div>
+          </div> */}
 
           {/* Display selected date information */}
           <div className="selected-date-info">
